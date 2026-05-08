@@ -1,4 +1,4 @@
-# Amazon Sales SQL Practice Questions (Intermediate → Advanced)
+# Amazon Sales SQL Practice Questions (Basic → Intermediate → Advanced)
 
 ---
 
