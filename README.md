@@ -376,3 +376,86 @@ FROM customer_rev;
 | customers_contributing_80pct | pct_of_customers | analysis              |
 | ---------------------------- | ---------------- | --------------------- |
 | 43230                        | 100.00           | 80/20 Rule Validation |
+
+## Q16.How many products were sold in each category?
+---
+``` SQL
+SELECT 
+    category,
+    COUNT(*) AS total_orders,
+    SUM(quantity) AS total_quantity_sold,
+    SUM(total_amount) AS revenue
+FROM amazon
+GROUP BY category
+ORDER BY revenue DESC;
+```
+| category          | total_orders | total_quantity_sold | revenue          |
+| ----------------- | ------------ | ------------------- | ---------------- |
+| Electronics       | 31683        | 95289               | 29260310.7800001 |
+| Sports & Outdoors | 31564        | 94913               | 28807925.25      |
+| Clothing          | 30930        | 93181               | 28714739.9699999 |
+| Books             | 31490        | 93874               | 28687489.62      |
+| Toys & Games      | 31029        | 93340               | 28562069.0300002 |
+| Home & Kitchen    | 31210        | 93261               | 28526970.35      |
+
+## Q17. Show top 5 selling products
+```SQL
+SELECT 
+    product_name,
+    SUM(quantity) AS total_sold,
+    SUM(total_amount) AS total_revenue
+FROM amazon
+GROUP BY product_name
+ORDER BY total_revenue DESC
+LIMIT 5;
+```
+| product_name        | total_sold | total_revenue |
+| ------------------- | ---------- | ------------- |
+| Memory Card 128GB   | 11667      | 3617105.11    |
+| LED Desk Lamp       | 11942      | 3613309.03    |
+| Mechanical Keyboard | 11599      | 3589285.36    |
+| Gaming Mouse        | 11679      | 3587031.21    |
+| Electric Kettle     | 11551      | 3569803.01    |
+
+## Q18. Which payment method is used the most?
+```SQL
+SELECT 
+    payment_method,
+    COUNT(*) AS usage_count
+FROM amazon
+GROUP BY payment_method
+ORDER BY usage_count DESC;
+```
+| payment_method   | usage_count |
+| ---------------- | ----------- |
+| Credit Card      | 65917       |
+| Debit Card       | 37547       |
+| UPI              | 28319       |
+| Amazon Pay       | 28207       |
+| Net Banking      | 18654       |
+| Cash on Delivery | 9262        |
+
+## Q19. How many unique customers are there?
+---
+```SQL
+SELECT COUNT(DISTINCT customer_id) AS total_customers
+FROM amazon;
+```
+| total_customers |
+| --------------- |
+| 43230           |
+
+## Q20. Which city did the order come from? (Unique city)
+---
+```SQL
+SELECT DISTINCT city 
+FROM amazon
+ORDER BY city limit 5;
+```
+| city      |
+| --------- |
+| Austin    |
+| Charlotte |
+| Chicago   |
+| Columbus  |
+| Dallas    |
